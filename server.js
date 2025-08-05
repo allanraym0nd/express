@@ -1,18 +1,27 @@
-const express =  require('express')
-const path = require('path')
+import express from 'express'
+import path from 'path'
+import posts from './routes/posts.js';
+import logger from './middleware/logger.js';
+import errorHandler from './middleware/error.js';
 const app = express()
 
-let posts = [ 
-    { id: 1, title: 'Post one'},
-     { id: 2, title: 'Post two'},
-      { id: 3, title: 'Post three'}
-]
-
-app.get('/api/posts' , (req,res) =>{
-    res.json(posts)
-})
+const port = process.env.PORT || 8000
 
 
+
+
+app.use(express.json()) // raw data
+app.use(express.urlencoded({extended:false})) // form data
+
+//logger middleware
+
+app.use(logger)
+
+//Routes
+app.use('/api/posts', posts)
+
+//errorHandler middleware
+app.use(errorHandler)
 //set up static folder. we use, use() because its middleware
 
 // app.use(express.static(path.join(__dirname, 'public')))
@@ -28,4 +37,4 @@ app.get('/api/posts' , (req,res) =>{
 
 //instead of creating a separate route for everypage, create a static server
 
-app.listen(5000, () => console.log('Server is running on port 5000'))
+app.listen(port, () => console.log(`Server is running on port ${port}`))
