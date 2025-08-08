@@ -41,6 +41,6 @@ app.use(errorHandler)
 //     res.sendFile(path.join(__dirname, 'public', 'about .html'))
 // })
 
-//instead of creating a separate route for everypage, create a static server
+//instead of creating a separate route for everypage, create a static file
 
 app.listen(port, () => console.log(`Server is running on port ${port}`))
