@@ -26,7 +26,6 @@ router.delete('/:id',deletePost)
 export default router;
 
 
-
 //commonjS
 
 // module.exports = router
